@@ -1,7 +1,7 @@
 # Kaggle Titanic: Machine Learning from Disaster
 
 [![Kaggle](https://img.shields.io/badge/Kaggle-Competition-blue)](https://www.kaggle.com/c/titanic)
-[![Best Score](https://img.shields.io/badge/Best%20LB%20Score-0.79904-green)]()
+[![Best Score](https://img.shields.io/badge/Best%20LB%20Score-0.80143-green)]()
 [![Python](https://img.shields.io/badge/Python-3.10+-yellow)]()
 
 > Predict survival on the Titanic using passenger data. A classic binary classification problem and the "Hello World" of machine learning.
@@ -21,8 +21,8 @@
 | V5 | 0.77272 | Single LGBM, conservative tuning | Ensemble > single model |
 | V6 | 0.78708 | OOF encoding + linear blend | Linear blending limited |
 | V7 | 0.78947 | Stacking + 6 models (5 algorithm types) | TicketSurvRate leakage → fixed |
-| V8 | **0.79904** | Isotonic calibration + FactorAnalysis + QT | FN=52≫FP=32, error clusters |
-| V9 | TBD | WCG post-processing + Cabin Side + finer grid | Latest — pending submission |
+| V8 | 0.79904 | Isotonic calibration + FactorAnalysis + QT | FN=52≫FP=32, error clusters |
+| V9 | **0.80143** | WCG post-processing + Cabin Side + finer grid | Domain rules > pure ML for edge cases |
 
 ---
 

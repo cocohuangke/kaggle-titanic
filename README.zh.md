@@ -1,7 +1,7 @@
 # Kaggle 泰坦尼克号：从灾难中学习机器学习
 
 [![Kaggle](https://img.shields.io/badge/Kaggle-竞赛-blue)](https://www.kaggle.com/c/titanic)
-[![最佳分数](https://img.shields.io/badge/最佳LB分数-0.79904-green)]()
+[![最佳分数](https://img.shields.io/badge/最佳LB分数-0.80143-green)]()
 [![Python](https://img.shields.io/badge/Python-3.10+-yellow)]()
 
 > 利用乘客数据预测泰坦尼克号上的生存情况。经典的二分类问题，机器学习的"Hello World"。
@@ -21,8 +21,8 @@
 | V5 | 0.77272 | 单一 LGBM，保守调参 | 集成 > 单模型 |
 | V6 | 0.78708 | OOF 编码 + 线性融合 | 线性融合能力有限 |
 | V7 | 0.78947 | Stacking + 6 模型（5 种算法） | TicketSurvRate 泄漏 → 已修复 |
-| V8 | **0.79904** | 保序校准 + 因子分析 + 分位数变换 | FN=52≫FP=32，错误聚集 |
-| V9 | TBD | WCG 后处理 + 舱位侧 + 更细搜索网格 | 最新版 — 待提交 |
+| V8 | 0.79904 | 保序校准 + 因子分析 + 分位数变换 | FN=52≫FP=32，错误聚集 |
+| V9 | **0.80143** | WCG 后处理 + 舱位侧 + 更细搜索网格 | 边缘 case：领域规则 > 纯 ML |
 
 ---
 
