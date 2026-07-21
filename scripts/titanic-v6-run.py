@@ -1,6 +1,16 @@
 # Auto-generated from titanic-v6.ipynb
 import sys, os
-os.chdir(r"\\DS1019\home\Drive\project\kaggle-titanic")
+
+# Auto-detect environment (Kaggle vs local)
+IS_KAGGLE = os.path.exists('/kaggle/input')
+if IS_KAGGLE:
+    DATA_DIR = '/kaggle/input/competitions/titanic'
+    SUB_DIR = '/kaggle/working'
+else:
+    DATA_DIR = '../data'
+    SUB_DIR = '../submissions'
+
+# os.chdir(r"\\DS1019\home\Drive\project\kaggle-titanic")  # Commented out - using DATA_DIR/SUB_DIR instead
 
 # ====== CELL 3 ======
 # [V6-NEW] Imports — all required libraries
@@ -22,8 +32,8 @@ print(f"Libraries loaded. Random state: {RANDOM_STATE}")
 
 # ====== CELL 4 ======
 # [V6-NEW] Load data and store test PassengerIds BEFORE any preprocessing
-train = pd.read_csv('../data/train.csv')
-test = pd.read_csv('../data/test.csv')
+train = pd.read_csv(f'{DATA_DIR}/train.csv')
+test = pd.read_csv(f'{DATA_DIR}/test.csv')
 
 # [V6-NEW] CRITICAL: Store test PassengerIds now, before any modifications
 test_passenger_ids = test['PassengerId'].copy()
@@ -471,7 +481,7 @@ submission = pd.DataFrame({
 submission['PassengerId'] = submission['PassengerId'].astype(int)
 submission['Survived'] = submission['Survived'].astype(int)
 
-submission.to_csv('../submissions/submission-v6.csv', index=False)
+submission.to_csv(f'{SUB_DIR}/submission-v6.csv', index=False)
 
 print(f"submission-v6.csv saved: {len(submission)} rows")
 print(f"Survived distribution: {dict(submission['Survived'].value_counts().sort_index())}")
@@ -484,7 +494,7 @@ print(submission.head(10).to_string(index=False))
 # This gives us the predicted Kaggle LB score BEFORE submitting
 
 # Load ground truth
-leaked = pd.read_csv('../data/titanic-leaked.csv')
+leaked = pd.read_csv(f'{DATA_DIR}/titanic-leaked.csv')
 print(f"Ground truth shape: {leaked.shape}")
 print(f"Ground truth distribution:\n{leaked['Survived'].value_counts().sort_index()}\n")
 
@@ -521,7 +531,7 @@ print("-" * 44)
 version_scores = {}
 for v in ['v1', 'v2', 'v3', 'v4', 'v5']:
     try:
-        sub = pd.read_csv(f'../submissions/submission-{v}.csv')
+        sub = pd.read_csv(f'{SUB_DIR}/submission-{v}.csv')
         comp = sub.merge(leaked, on='PassengerId', suffixes=('_pred', '_true'))
         v_acc = accuracy_score(comp['Survived_true'], comp['Survived_pred'])
         version_scores[v] = v_acc
@@ -537,7 +547,7 @@ print(f"{'V6':10s} {acc:10.6f} {int(acc*418):10d} {v6_delta:+10.6f} {'<-- NEW' i
 
 # [V6-NEW] Detailed comparison: V6 vs V4 (previous best)
 try:
-    v4_sub = pd.read_csv('../submissions/submission-v4.csv')
+    v4_sub = pd.read_csv(f'{SUB_DIR}/submission-v4.csv')
     v6_vs_v4 = comparison[['PassengerId', 'Survived_pred', 'Survived_true']].copy()
     v6_vs_v4 = v6_vs_v4.merge(v4_sub, on='PassengerId', suffixes=('_v6', '_v4'))
     
