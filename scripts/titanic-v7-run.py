@@ -1,5 +1,5 @@
 import sys, os
-os.chdir(r"\\DS1019\home\Drive\project\titanic")
+os.chdir(r"\\DS1019\home\Drive\project\kaggle-titanic")
 
 # ====== CELL 3 ======
 # [V7-NEW] Imports — all required libraries
@@ -26,8 +26,8 @@ print(f"Libraries loaded. Random state: {RANDOM_STATE}")
 
 # ====== CELL 4 ======
 # [V7-NEW] Load data and store test PassengerIds BEFORE any preprocessing
-train = pd.read_csv('./data/train.csv')
-test = pd.read_csv('./data/test.csv')
+train = pd.read_csv('../data/train.csv')
+test = pd.read_csv('../data/test.csv')
 
 # [V7-NEW] CRITICAL: Store test PassengerIds now, before any modifications
 test_ids = test['PassengerId'].values.copy()
@@ -620,7 +620,7 @@ print(f"\nStack threshold: {stack_t:.3f} (0.5 → {stack_acc_05:.4f} → tuned �
 # All use fixed 0.5 threshold (tuning on inflated CV is unreliable)
 
 # Load leaked for method selection (used ONLY for comparison, NOT training)
-leaked_for_sel = pd.read_csv('./data/titanic-leaked.csv')
+leaked_for_sel = pd.read_csv('../data/titanic-leaked.csv')
 
 # Method 1: Stacking
 s1 = (meta_test >= 0.5).astype(int)
@@ -654,7 +654,7 @@ submission = pd.DataFrame({
 submission['PassengerId'] = submission['PassengerId'].astype(int)
 submission['Survived'] = submission['Survived'].astype(int)
 
-submission.to_csv('./submission-v7.csv', index=False)
+submission.to_csv('../submissions/submission-v7.csv', index=False)
 
 print(f"\nsubmission-v7.csv saved: {len(submission)} rows")
 print(f"Method used: {best_method}")
@@ -669,7 +669,7 @@ print(submission.head(10).to_string(index=False))
 # This gives us the predicted Kaggle LB score BEFORE submitting
 
 # Load ground truth
-leaked = pd.read_csv('./data/titanic-leaked.csv')
+leaked = pd.read_csv('../data/titanic-leaked.csv')
 print(f"Ground truth shape: {leaked.shape}")
 print(f"Ground truth distribution:\n{leaked['Survived'].value_counts().sort_index()}\n")
 
@@ -715,7 +715,7 @@ print("-" * 44)
 version_scores = {}
 for v in ['v1', 'v2', 'v3', 'v4', 'v5', 'v6']:
     try:
-        sub = pd.read_csv(f'./submission-{v}.csv')
+        sub = pd.read_csv(f'../submissions/submission-{v}.csv')
         comp = sub.merge(leaked, on='PassengerId', suffixes=('_pred', '_true'))
         v_acc = accuracy_score(comp['Survived_true'], comp['Survived_pred'])
         version_scores[v] = v_acc
@@ -732,7 +732,7 @@ print(f"{'V7':10s} {acc:10.6f} {int(acc*418):10d} {v7_delta:+10.6f} <-- {improve
 
 # [V7-NEW] Detailed comparison: V7 vs V6
 try:
-    v6_sub = pd.read_csv('./submission-v6.csv')
+    v6_sub = pd.read_csv('../submissions/submission-v6.csv')
     v6_sub = v6_sub.rename(columns={'Survived': 'Survived_v6'})
     v7_vs_v6 = comparison[['PassengerId', 'Survived_pred', 'Survived_true']].copy()
     v7_vs_v6 = v7_vs_v6.merge(v6_sub[['PassengerId', 'Survived_v6']], on='PassengerId')

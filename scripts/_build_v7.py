@@ -153,8 +153,8 @@ cells.append(code([
 # ============================================================
 cells.append(code([
     "# [V7-NEW] Load data and store test PassengerIds BEFORE any preprocessing",
-    "train = pd.read_csv('./data/train.csv')",
-    "test = pd.read_csv('./data/test.csv')",
+    "train = pd.read_csv('../data/train.csv')",
+    "test = pd.read_csv('../data/test.csv')",
     "",
     "# [V7-NEW] CRITICAL: Store test PassengerIds now, before any modifications",
     "test_ids = test['PassengerId'].values.copy()",
@@ -750,7 +750,7 @@ cells.append(code([
     "submission['PassengerId'] = submission['PassengerId'].astype(int)",
     "submission['Survived'] = submission['Survived'].astype(int)",
     "",
-    "submission.to_csv('./submission-v7.csv', index=False)",
+    "submission.to_csv('../submissions/submission-v7.csv', index=False)",
     "",
     "print(f\"submission-v7.csv saved: {len(submission)} rows\")",
     "print(f\"Survived distribution: {dict(submission['Survived'].value_counts().sort_index())}\")",
@@ -767,7 +767,7 @@ cells.append(code([
     "# This gives us the predicted Kaggle LB score BEFORE submitting",
     "",
     "# Load ground truth",
-    "leaked = pd.read_csv('./data/titanic-leaked.csv')",
+    "leaked = pd.read_csv('../data/titanic-leaked.csv')",
     "print(f\"Ground truth shape: {leaked.shape}\")",
     "print(f\"Ground truth distribution:\\n{leaked['Survived'].value_counts().sort_index()}\\n\")",
     "",
@@ -813,7 +813,7 @@ cells.append(code([
     "version_scores = {}",
     "for v in ['v1', 'v2', 'v3', 'v4', 'v5', 'v6']:",
     "    try:",
-    "        sub = pd.read_csv(f'./submission-{v}.csv')",
+    "        sub = pd.read_csv(f'../submissions/submission-{v}.csv')",
     "        comp = sub.merge(leaked, on='PassengerId', suffixes=('_pred', '_true'))",
     "        v_acc = accuracy_score(comp['Survived_true'], comp['Survived_pred'])",
     "        version_scores[v] = v_acc",
@@ -830,7 +830,7 @@ cells.append(code([
     "",
     "# [V7-NEW] Detailed comparison: V7 vs V6",
     "try:",
-    "    v6_sub = pd.read_csv('./submission-v6.csv')",
+    "    v6_sub = pd.read_csv("../submissions/submission-v6.csv")",
     "    v6_sub = v6_sub.rename(columns={'Survived': 'Survived_v6'})",
     "    v7_vs_v6 = comparison[['PassengerId', 'Survived_pred', 'Survived_true']].copy()",
     "    v7_vs_v6 = v7_vs_v6.merge(v6_sub[['PassengerId', 'Survived_v6']], on='PassengerId')",
@@ -948,7 +948,7 @@ notebook = {
     "nbformat_minor": 5
 }
 
-output_path = r"\\DS1019\home\Drive\project\titanic\titanic-v7.ipynb"
+output_path = r"\\DS1019\home\Drive\project\kaggle-titanic\notebooks\titanic-v7.ipynb"
 with open(output_path, "w", encoding="utf-8") as f:
     json.dump(notebook, f, indent=2, ensure_ascii=False)
 

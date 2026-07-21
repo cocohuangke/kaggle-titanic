@@ -36,16 +36,22 @@ kaggle-titanic/
 │   ├── gender_submission.csv      # Kaggle baseline
 │   ├── titanic-leaked.csv         # Ground truth for validation
 │   └── titanic-ground-true.csv    # Ground truth (alternate)
-├── titanic.ipynb                  # V1 — initial notebook
-├── titanic-v3.ipynb .. v9.ipynb   # V3–V9 — progressive improvements
-├── titanic-v3-executed.ipynb      # Pre-executed notebook (V3)
-├── titanic-v4-executed.ipynb      # Pre-executed notebook (V4)
-├── titanic-v5-executed.ipynb      # Pre-executed notebook (V5)
-├── titanic-v6-run.py              # Standalone script (V6)
-├── titanic-v7-run.py              # Standalone script (V7)
-├── _build_v7.py                   # V7 build helper
-├── _convert.py                    # Notebook ↔ script converter
-├── submission-v1.csv .. v9.csv    # Kaggle submissions
+├── notebooks/                     # Jupyter notebooks
+│   ├── titanic.ipynb              # V1 — initial notebook
+│   ├── titanic-v3.ipynb           # V3 — LOO encoding
+│   ├── titanic-v4.ipynb           # V4 — 57 features
+│   ├── titanic-v5.ipynb           # V5 — Single LGBM
+│   ├── titanic-v6.ipynb           # V6 — OOF encoding
+│   ├── titanic-v7.ipynb           # V7 — Stacking
+│   ├── titanic-v8.ipynb           # V8 — Calibration (best LB)
+│   └── titanic-v9.ipynb           # V9 — WCG post-processing
+├── scripts/                       # Standalone Python scripts
+│   ├── titanic-v6-run.py          # V6 script
+│   ├── titanic-v7-run.py          # V7 script
+│   ├── _build_v7.py               # V7 build helper
+│   └── _convert.py                # Notebook ↔ script converter
+├── submissions/                   # Kaggle submission files
+│   └── submission-v1.csv .. v9.csv
 ├── tutorial/                      # Reference tutorials
 ├── README.md                      # This file
 └── README.zh.md                   # Chinese documentation
@@ -164,17 +170,17 @@ pip install pandas numpy scikit-learn lightgbm catboost matplotlib seaborn missi
 
 **Option A: Notebook**
 ```bash
-jupyter notebook titanic-v9.ipynb
+jupyter notebook notebooks/titanic-v9.ipynb
 ```
 
 **Option B: Script (V7)**
 ```bash
-python titanic-v7-run.py
+python scripts/titanic-v7-run.py
 ```
 
 ### Submit
 
-Upload the generated `submission-v9.csv` to [Kaggle](https://www.kaggle.com/c/titanic/submissions).
+Upload the generated `submissions/submission-v9.csv` to [Kaggle](https://www.kaggle.com/c/titanic/submissions).
 
 ---
 

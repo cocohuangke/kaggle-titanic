@@ -36,16 +36,22 @@ kaggle-titanic/
 │   ├── gender_submission.csv      # Kaggle 基线
 │   ├── titanic-leaked.csv         # 真实标签（验证用）
 │   └── titanic-ground-true.csv    # 真实标签（备用）
-├── titanic.ipynb                  # V1 — 初始 notebook
-├── titanic-v3.ipynb .. v9.ipynb   # V3–V9 — 逐步改进
-├── titanic-v3-executed.ipynb      # 预执行 notebook（V3）
-├── titanic-v4-executed.ipynb      # 预执行 notebook（V4）
-├── titanic-v5-executed.ipynb      # 预执行 notebook（V5）
-├── titanic-v6-run.py              # 独立脚本（V6）
-├── titanic-v7-run.py              # 独立脚本（V7）
-├── _build_v7.py                   # V7 构建辅助
-├── _convert.py                    # Notebook ↔ 脚本转换器
-├── submission-v1.csv .. v9.csv    # Kaggle 提交文件
+├── notebooks/                     # Jupyter notebooks
+│   ├── titanic.ipynb              # V1 — 初始 notebook
+│   ├── titanic-v3.ipynb           # V3 — LOO 编码
+│   ├── titanic-v4.ipynb           # V4 — 57 个特征
+│   ├── titanic-v5.ipynb           # V5 — 单一 LGBM
+│   ├── titanic-v6.ipynb           # V6 — OOF 编码
+│   ├── titanic-v7.ipynb           # V7 — Stacking
+│   ├── titanic-v8.ipynb           # V8 — 校准（最佳 LB）
+│   └── titanic-v9.ipynb           # V9 — WCG 后处理
+├── scripts/                       # 独立 Python 脚本
+│   ├── titanic-v6-run.py          # V6 脚本
+│   ├── titanic-v7-run.py          # V7 脚本
+│   ├── _build_v7.py               # V7 构建辅助
+│   └── _convert.py                # Notebook ↔ 脚本转换器
+├── submissions/                   # Kaggle 提交文件
+│   └── submission-v1.csv .. v9.csv
 ├── tutorial/                      # 参考教程
 ├── README.md                      # 英文文档
 └── README.zh.md                   # 本文件
@@ -164,17 +170,17 @@ pip install pandas numpy scikit-learn lightgbm catboost matplotlib seaborn missi
 
 **方式 A：Notebook**
 ```bash
-jupyter notebook titanic-v9.ipynb
+jupyter notebook notebooks/titanic-v9.ipynb
 ```
 
 **方式 B：脚本（V7）**
 ```bash
-python titanic-v7-run.py
+python scripts/titanic-v7-run.py
 ```
 
 ### 提交结果
 
-将生成的 `submission-v9.csv` 上传至 [Kaggle](https://www.kaggle.com/c/titanic/submissions)。
+将生成的 `submissions/submission-v9.csv` 上传至 [Kaggle](https://www.kaggle.com/c/titanic/submissions)。
 
 ---
 
